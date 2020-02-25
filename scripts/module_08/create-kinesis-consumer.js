@@ -7,7 +7,7 @@ AWS.config.update({ region: 'us-east-2' })
 // Declare local variables
 const lambda = new AWS.Lambda()
 const functionName = 'hamster-kinesis-stream-consumer'
-const kinesisArn = '/* TODO: Add your kinesis ARN */'
+const kinesisArn = 'arn:aws:kinesis:us-east-2:320742549300:stream/hamster-race-results'
 let roleArn
 
 helpers.createLambdaKinesisRole()
@@ -44,7 +44,12 @@ function createLambda (roleArn, lambdaName, zippedCode) {
 }
 
 function createTrigger (kinesisArn, lambdaName) {
-  // TODO: Create params const for trigger
+  const params = {
+    EventSourceArn: kinesisArn,
+    FunctionName: lambdaName,
+    StartingPosition: 'LATEST',
+    BatchSize: 100
+  }
 
   return new Promise((resolve, reject) => {
     lambda.createEventSourceMapping(params, (err, data) => {
