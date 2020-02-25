@@ -1,7 +1,7 @@
 // Imports
 const AWS = require('aws-sdk')
 
-AWS.config.update({ region: '/* TODO: Add your region */' })
+AWS.config.update({ region: 'us-east-2' })
 
 // Declare local variables
 // TODO: Create sns object
